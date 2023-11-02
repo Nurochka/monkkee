@@ -40,7 +40,7 @@ public class LoginPageTest extends BaseTest {
                 "Login labels are translated wrong!");
     }
 
-    @Test(description = "Checking there is a validation message on login without password")
+    @Test(description = "Checking validation message on login without password")
     @Description("Validation when login with empty Password field")
     public void checkPasswordFieldIsMandatoryTest() {
         String expectedPasswordFieldValidationText = "Mandatory field";

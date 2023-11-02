@@ -1,7 +1,7 @@
 package page;
 
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import service.EntriesPageService;
@@ -9,14 +9,13 @@ import service.LoginPageService;
 import service.SingleEntryPageService;
 import utils.Waiter;
 
-import java.time.Duration;
 import java.util.List;
-
-import static utils.Waiter.waitAlertIsPresent;
 
 
 @Log4j2
 public class EntriesPage extends Page {
+
+    private static final String TAGS_LINKS = "//a[contains(text(), '%s')]";
 
     @FindBy(xpath = "//button[@class='user-menu__btn']")
     private WebElement logoutButton;
@@ -27,7 +26,7 @@ public class EntriesPage extends Page {
     @FindBy(xpath = "//a[@class='entry']//div[@class=' body']")
     private List<WebElement> listOfEntries;
 
-    @FindBy(xpath = " //div[@class='checkbox-wrapper']//input[@class='ng-pristine ng-valid']")
+    @FindBy(xpath = "//div[@class='checkbox-wrapper']//input[@class='ng-pristine ng-valid']")
     private List<WebElement> listOfEntriesCheckboxes;
 
     @FindBy(xpath = "//a[@id='delete-entries']")
@@ -41,6 +40,12 @@ public class EntriesPage extends Page {
 
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement searchButton;
+
+    @FindBy(xpath = "//span[@class='ng-binding search-parameter']")
+    private WebElement tagCriteria;
+
+
+
 
 
     public boolean checkLogoutButtonIsPresent() {
@@ -108,5 +113,22 @@ public class EntriesPage extends Page {
         return new EntriesPageService();
     }
 
+    public EntriesPageService clickTagLinkByTagName(String tagName) {
+        log.info("Clicking tag link by tag name");
+        driver.findElement(By.xpath(String.format(TAGS_LINKS, tagName))).click();
+        return new EntriesPageService();
+    }
+
+    public String getTagCriteriaText() {
+        log.info("Getting tag criteria name");
+        String tagCriteriaText = Waiter.waitElementToBeVisible(tagCriteria).getText();
+        return tagCriteriaText;
+    }
+
+    public int getTheNumberOfEntriesOnPage() {
+        log.info("Getting the number of entries on a page");
+        int numberOfEntries = listOfEntries.size();
+        return numberOfEntries;
+    }
 
 }

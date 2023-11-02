@@ -4,6 +4,8 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import page.EntriesPage;
 
+import java.util.ArrayList;
+
 import static utils.Waiter.waitAlertIsPresent;
 
 public class EntriesPageService extends EntriesPage {
@@ -32,8 +34,8 @@ public class EntriesPageService extends EntriesPage {
         return entriesPage.clickCreateEntryButton();
     }
 
-    @Step("Getting text of an Entry by index")
-    public String getEntryTextByIndex(int index) {
+    @Step("Get text of an Entry by index")
+    public String getEntryText(int index) {
         return entriesPage.getEntryTextByIndex(index);
     }
 
@@ -43,7 +45,7 @@ public class EntriesPageService extends EntriesPage {
     }
 
     @Step("Remove Entry by index")
-    public EntriesPageService removeEntryByIndex(int index){
+    public EntriesPageService removeEntryByIndex(int index) {
         return entriesPage.checkEntryCheckboxByIndex(index)
                 .clickDeleteSelectedEntriesButton()
                 .confirmRemovingInAlertPopup()
@@ -62,6 +64,28 @@ public class EntriesPageService extends EntriesPage {
                 .clickSearchButton();
     }
 
+    @Step("Search entries by Tag Name")
+    public EntriesPageService searchForEntryByTagName(String tagName) {
+        return entriesPage.clickLogoImage()
+                .clickTagLinkByTagName(tagName);
+    }
+
+    @Step("Check search explanation text contains correct tag name")
+    public boolean SearchExplanationTextContainsCorrectTagName(String tagNameToContain) {
+        System.out.println(entriesPage.getTagCriteriaText() + " " + tagNameToContain);
+        return (entriesPage.getTagCriteriaText().equals(tagNameToContain));
+    }
+
+    @Step("Get text from all entries on a page")
+    public ArrayList<String> getTextOfAllEntries() {
+        int numberOfEntries = entriesPage.getTheNumberOfEntriesOnPage();
+        ArrayList<String> listOfTextFromAllEntries = new ArrayList<>();
+        for (int i = 0; i < numberOfEntries; i++) {
+            listOfTextFromAllEntries.add(getEntryTextByIndex(i));
+        }
+        return listOfTextFromAllEntries;
+    }
+
 
     private EntriesPageService confirmRemovingInAlertPopup() {
         waitAlertIsPresent();
@@ -69,5 +93,6 @@ public class EntriesPageService extends EntriesPage {
         alert.accept();
         return this;
     }
+
 
 }

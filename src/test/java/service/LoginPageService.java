@@ -24,13 +24,13 @@ public class LoginPageService extends LoginPage {
         return new EntriesPageService();
     }
 
-    @Step("Switching language")
+    @Step("Switch language")
     public LoginPageService changeLoginLanguage(String lang) {
         loginPage.switchLanguage(lang);
         return new LoginPageService();
     }
 
-    @Step("Getting text of login elements")
+    @Step("Get text of login elements")
     public String[] takeElementsText() {
         String nameText = loginPage.getUserNameLabelText();
         String passwordText = loginPage.getPasswordLabelText();
@@ -47,7 +47,7 @@ public class LoginPageService extends LoginPage {
         return new LoginPageService();
     }
 
-    @Step("Getting validation text for password field")
+    @Step("Get validation text for password field")
     public String getPasswordValidationText() {
         String validation = loginPage.getPasswordFieldValidationText();
         return validation;
