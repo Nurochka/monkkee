@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 @Log4j2
 public class Page {
-    protected static WebDriver driver = DriverSingleton.getInstance().getDriver();
+    protected WebDriver driver = DriverSingleton.getInstance().getDriver();
 
     protected Page() {
         PageFactory.initElements(driver, this);

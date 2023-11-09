@@ -12,9 +12,9 @@ public class BaseTest {
     protected LoginPageService loginPageService;
     protected User user;
 
-   /* @AfterClass
+    @AfterClass(alwaysRun = true)
     public void stopBrowser() {
         DriverSingleton.getInstance().closeDriver();
-    }*/
+    }
 
 }

@@ -18,18 +18,18 @@ import static utils.TestDataGenerator.generateSubString;
 
 public class EntriesPageTest extends BaseTest {
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() {
         loginPageService = new LoginPageService();
         user = new User();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void refreshPage() {
         DriverSingleton.getInstance().getDriver().navigate().refresh();
     }
 
-    @Test(description = "Checking a new Entry can be saved successfully", priority = 1)
+    @Test(description = "Checking a new Entry can be saved successfully", priority = 1, groups = {"smoke", "regression"})
     @Description("Verify that a new Entry can be created")
     public void checkNewEntryIsAddedTest() {
         int indexOfTheLatestSavedEntry = 0;
@@ -41,7 +41,7 @@ public class EntriesPageTest extends BaseTest {
         Assert.assertEquals(actualEntryText, randomText, "Text of created entry is not as expected!");
     }
 
-    @Test(description = "Checking Entry text can be edited", priority = 2)
+    @Test(description = "Checking Entry text can be edited", priority = 2, groups = {"smoke", "regression"})
     @Description("Verify that Entry text can be edited and saved successfully")
     public void checkEditedEntryIsSavedTest() {
         int indexOfTheLatestSavedEntry = 0;
@@ -57,7 +57,7 @@ public class EntriesPageTest extends BaseTest {
                 "Text of edited entry is not as expected!");
     }
 
-    @Test(description = "Checking Entry can be removed", priority = 2)
+    @Test(description = "Checking Entry can be removed", priority = 2, groups = {"smoke", "regression"})
     @Description("Verify that created Entry can be removed successfully")
     public void checkEntryIsRemovedTest() {
         int indexOfEntryToRemove = 0;
@@ -74,7 +74,7 @@ public class EntriesPageTest extends BaseTest {
                 "Entry was not removed correctly!");
     }
 
-    @Test(description = "Search an Entry by partial text", priority = 2)
+    @Test(description = "Search an Entry by partial text", priority = 2, groups = {"regression"})
     @Description("Verify that Entry is displayed in Search results when searching by text")
     public void checkEntryIsSearchedByTextTest() {
         String randomTextOnCreation = generateRandomString(20);
@@ -90,7 +90,7 @@ public class EntriesPageTest extends BaseTest {
         Assert.assertTrue(textFromFoundEntry.contains(subStringToSearch), "Returned value doesn't is wrong!");
     }
 
-    @Test(description = "Search Entries by tag", priority = 2)
+    @Test(description = "Search Entries by tag", priority = 2, groups = {"regression"})
     @Description("Verify that Entry is displayed in Search results when searching by tag")
     public void checkEntryIsSearchedByTagTest() {
         String firstEntryText = generateRandomString(20);

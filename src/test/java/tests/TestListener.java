@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Log4j2
 public class TestListener implements ITestListener {
-    //log вместо sout
+
     public void onTestStart(ITestResult iTestResult) {
         log.info((String.format("======================================== STARTING TEST %s ========================================", iTestResult.getName())));
     }
