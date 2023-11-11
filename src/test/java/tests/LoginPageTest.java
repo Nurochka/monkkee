@@ -30,7 +30,7 @@ public class LoginPageTest extends BaseTest {
         };
     }
 
-    @Test(description = "Checking languages can be switched correctly", dataProvider = "LanguagesToSwitch", groups = { "regression"})
+    @Test(description = "Checking languages can be switched correctly", dataProvider = "LanguagesToSwitch", priority = 1, groups = { "regression"})
     @Description("Validation of correct translation when changing language on login page")
     public void checkLoginLabelsTranslatedCorrectlyTest(String language) {
         String[] actualTranslatedText = loginPageService.openLogin()
@@ -40,7 +40,7 @@ public class LoginPageTest extends BaseTest {
                 "Login labels are translated wrong!");
     }
 
-    @Test(description = "Checking validation message on login without password", groups = {"smoke", "regression"})
+    @Test(description = "Checking validation message on login without password", priority = 2, groups = {"smoke", "regression"})
     @Description("Validation when login with empty Password field")
     public void checkPasswordFieldIsMandatoryTest() {
         String expectedPasswordFieldValidationText = "Mandatory field";
@@ -50,7 +50,7 @@ public class LoginPageTest extends BaseTest {
                 "Password field validation is wrong!");
     }
 
-    @Test(description = "Checking success login", groups = {"smoke", "regression"})
+    @Test(description = "Checking success login", priority = 4, groups = {"smoke", "regression"})
     @Description("Validation of success login process")
     public void checkSuccessfulLoginTest() {
         EntriesPageService entriesPageService = loginPageService.login(user);
@@ -63,7 +63,7 @@ public class LoginPageTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(description = "Checking success logout", groups = {"smoke", "regression"})
+    @Test(description = "Checking success logout", priority = 3, groups = {"smoke", "regression"})
     @Description("Validation of success logout process")
     public void checkSuccessfulLogoutTest() {
         LoginPageService afterLogoutPage = loginPageService.login(user).logout();
