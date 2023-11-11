@@ -12,14 +12,15 @@
             <class name="tests.LoginPageTest"/>
         </classes>
     </test>
-    <test name="Entries smoke tests">
-        <classes>
-            <class name="tests.EntriesPageTest"/>
-        </classes>
-    </test>
     <test name="Single entry smoke tests">
         <classes>
             <class name="tests.SingleEntryPageTest"/>
         </classes>
     </test>
+    <test name="Entries smoke tests">
+        <classes>
+            <class name="tests.EntriesPageTest"/>
+        </classes>
+    </test>
+
 </suite>
