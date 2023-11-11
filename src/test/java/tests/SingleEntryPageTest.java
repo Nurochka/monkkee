@@ -27,7 +27,7 @@ public class SingleEntryPageTest extends BaseTest {
         DriverSingleton.getInstance().getDriver().navigate().refresh();
     }
 
-    @Test(description = "Checking a new Tag can be assigned to Entry", priority = 1, groups = {"smoke", "regression"})
+    @Test(description = "Checking a new Tag can be assigned to Entry", priority = 2, groups = {"smoke", "regression"})
     @Description("Verify that a new Tag is assigned to a New Entry")
     public void checkNewTagIsAssignedToNewEntryTest() {
         String randomEntryText = generateRandomString(50);
@@ -39,7 +39,7 @@ public class SingleEntryPageTest extends BaseTest {
         Assert.assertTrue(isNewTagAssigned, "New Tag is not in the list of assigned tags!");
     }
 
-    @Test(description = "Checking previously created tag is available for a new Entry", priority = 3, groups = {"regression"})
+    @Test(description = "Checking previously created tag is available for a new Entry", priority = 1, groups = {"regression"})
     @Description("Verify that previously created tag is displayed in 'Not assigned tags' dropdown")
     public void checkExistingTagIsAvailableInANewEntryTest() {
         String randomEntryText = generateRandomString(50);
@@ -54,7 +54,7 @@ public class SingleEntryPageTest extends BaseTest {
                 "Previously created Tag is not available for other entries!");
     }
 
-    @Test(description = "Checking assigned tag can be removed", priority = 2, groups = {"smoke", "regression"})
+    @Test(description = "Checking assigned tag can be removed", priority = 3, groups = {"smoke", "regression"})
     @Description("Verify that assigned tag is removed when clicking on it")
     public void checkAssignedTagCanBeRemovedTest() {
         String randomEntryText = generateRandomString(50);
