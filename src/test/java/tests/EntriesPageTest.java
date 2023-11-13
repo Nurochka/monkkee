@@ -35,27 +35,27 @@ public class EntriesPageTest extends BaseTest {
     @Description("Verify that a new Entry can be created")
     public void checkNewEntryIsAddedTest() {
         int indexOfTheLatestSavedEntry = 0;
-        String randomText = generateRandomString(50);
+        String expectedEntryText = generateRandomString(50);
         String actualEntryText = loginPageService.login(user)
                 .clickCreateNewEntryButton()
-                .createOrEditEntry(randomText)
+                .createOrEditEntry(expectedEntryText)
                 .getEntryTextByIndex(indexOfTheLatestSavedEntry);
-        Assert.assertEquals(actualEntryText, randomText, "Text of created entry is not as expected!");
+        Assert.assertEquals(actualEntryText, expectedEntryText, "Text of created entry is not as expected!");
     }
 
     @Test(description = "Checking Entry text can be edited", priority = 2, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that Entry text can be edited and saved successfully")
     public void checkEditedEntryIsSavedTest() {
         int indexOfTheLatestSavedEntry = 0;
-        String randomTextOnCreation = generateRandomString(50);
-        String randomTextOnEditing = generateRandomString(30);
+        String TextOnCreation = generateRandomString(50);
+        String TextOnEditing = generateRandomString(30);
         String actualEntryTextAfterEditing = loginPageService.login(user)
                 .clickCreateNewEntryButton()
-                .createOrEditEntry(randomTextOnCreation)
+                .createOrEditEntry(TextOnCreation)
                 .clickOnEntryTextByIndex(indexOfTheLatestSavedEntry)
-                .createOrEditEntry(randomTextOnEditing)
+                .createOrEditEntry(TextOnEditing)
                 .getEntryTextByIndex(indexOfTheLatestSavedEntry);
-        Assert.assertEquals(actualEntryTextAfterEditing, randomTextOnCreation + randomTextOnEditing,
+        Assert.assertEquals(actualEntryTextAfterEditing, TextOnCreation + TextOnEditing,
                 "Text of edited entry is not as expected!");
     }
 
@@ -63,10 +63,10 @@ public class EntriesPageTest extends BaseTest {
     @Description("Verify that created Entry can be removed successfully")
     public void checkEntryIsRemovedTest() {
         int indexOfEntryToRemove = 0;
-        String randomTextOnCreation = generateRandomString(50);
+        String TextOnCreation = generateRandomString(50);
         EntriesPageService entriesPageService = loginPageService.login(user)
                 .clickCreateNewEntryButton()
-                .createOrEditEntry(randomTextOnCreation);
+                .createOrEditEntry(TextOnCreation);
         int numberOfEntriesBeforeRemoving = entriesPageService.getTheNumberOfExistingEntries();
         int numberOfEntriesAfterRemoving = entriesPageService.removeEntryByIndex(indexOfEntryToRemove)
                 .getTheNumberOfExistingEntries();
@@ -79,14 +79,14 @@ public class EntriesPageTest extends BaseTest {
     @Test(description = "Search an Entry by partial text", priority = 2, groups = {"regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that Entry is displayed in Search results when searching by text")
     public void checkEntryIsSearchedByTextTest() {
-        String randomTextOnCreation = generateRandomString(20);
+        String TextOnCreation = generateRandomString(20);
         int subStringStartIndex = 2;
         int subStringEndIndex = 10;
         int indexOfFoundEntry = 0;
-        String subStringToSearch = generateSubString(randomTextOnCreation, subStringStartIndex, subStringEndIndex);
+        String subStringToSearch = generateSubString(TextOnCreation, subStringStartIndex, subStringEndIndex);
         String textFromFoundEntry = loginPageService.login(user)
                 .clickCreateNewEntryButton()
-                .createOrEditEntry(randomTextOnCreation)
+                .createOrEditEntry(TextOnCreation)
                 .searchForEntryByText(subStringToSearch)
                 .getEntryText(indexOfFoundEntry);
         Assert.assertTrue(textFromFoundEntry.contains(subStringToSearch), "Returned value doesn't is wrong!");
@@ -105,7 +105,7 @@ public class EntriesPageTest extends BaseTest {
                 .clickCreateNewEntryButton()
                 .createEntryWithExistingTag(secondEntryText, tag)
                 .searchForEntryByTagName(tag);
-        Boolean tagNameIsInExplanationMessage = entriesPageService.SearchExplanationTextContainsCorrectTagName(tag);
+        boolean tagNameIsInExplanationMessage = entriesPageService.SearchExplanationTextContainsCorrectTagName(tag);
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(tagNameIsInExplanationMessage,
                 "Required Tag name is not displayed in explanation message!");

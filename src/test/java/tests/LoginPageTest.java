@@ -11,8 +11,7 @@ import service.EntriesPageService;
 import service.LoginPageService;
 import utils.Retry;
 
-import static model.Langs.compareTranslatedLoginLabels;
-
+import static utils.Langs.compareTranslatedLoginLabels;
 
 public class LoginPageTest extends BaseTest {
 
@@ -23,7 +22,7 @@ public class LoginPageTest extends BaseTest {
     }
 
     @DataProvider
-    private Object[][] LanguagesToSwitch() {
+    private Object[][] switchLanguageTo() {
         return new Object[][]{
                 {"FR"},
                 {"DE"},
@@ -31,7 +30,7 @@ public class LoginPageTest extends BaseTest {
         };
     }
 
-    @Test(description = "Checking languages can be switched correctly", dataProvider = "LanguagesToSwitch", priority = 1, groups = { "regression"}, retryAnalyzer = Retry.class)
+    @Test(description = "Checking languages can be switched correctly", dataProvider = "switchLanguageTo", priority = 2, groups = { "regression"}, retryAnalyzer = Retry.class)
     @Description("Validation of correct translation when changing language on login page")
     public void checkLoginLabelsTranslatedCorrectlyTest(String language) {
         String[] actualTranslatedText = loginPageService.openLogin()
@@ -41,7 +40,7 @@ public class LoginPageTest extends BaseTest {
                 "Login labels are translated wrong!");
     }
 
-    @Test(description = "Checking validation message on login without password", priority = 2, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
+    @Test(description = "Checking validation message on login without password", priority = 3, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
     @Description("Validation when login with empty Password field")
     public void checkPasswordFieldIsMandatoryTest() {
         String expectedPasswordFieldValidationText = "Mandatory field";
@@ -56,22 +55,22 @@ public class LoginPageTest extends BaseTest {
     public void checkSuccessfulLoginTest() {
         EntriesPageService entriesPageService = loginPageService.login(user);
         SoftAssert softAssert = new SoftAssert();
-        Boolean logoutButtonIsDisplayed = entriesPageService.checkLogoutButtonIsDisplayedOnPage();
+        boolean logoutButtonIsDisplayed = entriesPageService.checkLogoutButtonIsDisplayedOnPage();
         softAssert.assertTrue(logoutButtonIsDisplayed, "Logout button is not displayed!");
-        Boolean isUrlCorrect = entriesPageService.checkEntriesPageUrlIsCorrect();
+        boolean isUrlCorrect = entriesPageService.checkEntriesPageUrlIsCorrect();
         softAssert.assertTrue(isUrlCorrect, "Entries page URL is wrong!");
         entriesPageService.logout();
         softAssert.assertAll();
     }
 
-    @Test(description = "Checking success logout", priority = 3, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
+    @Test(description = "Checking success logout", priority = 1, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
     @Description("Validation of success logout process")
     public void checkSuccessfulLogoutTest() {
         LoginPageService afterLogoutPage = loginPageService.login(user).logout();
         SoftAssert softAssert = new SoftAssert();
-        Boolean loginButtonIsDisplayed = afterLogoutPage.checkLoginButtonIsDisplayedOnPage();
+        boolean loginButtonIsDisplayed = afterLogoutPage.checkLoginButtonIsDisplayedOnPage();
         softAssert.assertTrue(loginButtonIsDisplayed, "Login button is not displayed after logout!");
-        Boolean isUrlCorrect = afterLogoutPage.checkPageUrlAfterLogoutIsCorrect();
+        boolean isUrlCorrect = afterLogoutPage.checkPageUrlAfterLogoutIsCorrect();
         softAssert.assertTrue(isUrlCorrect, "Page URL after logout is wrong");
         softAssert.assertAll();
     }

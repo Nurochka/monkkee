@@ -49,8 +49,7 @@ public class LoginPageService extends LoginPage {
 
     @Step("Get validation text for password field")
     public String getPasswordValidationText() {
-        String validation = loginPage.getPasswordFieldValidationText();
-        return validation;
+        return loginPage.getPasswordFieldValidationText();
     }
 
     @Step("Check page url is correct after logout")

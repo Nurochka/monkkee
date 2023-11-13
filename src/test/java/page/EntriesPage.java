@@ -44,10 +44,6 @@ public class EntriesPage extends Page {
     @FindBy(xpath = "//span[@class='ng-binding search-parameter']")
     private WebElement tagCriteria;
 
-
-
-
-
     public boolean checkLogoutButtonIsPresent() {
         log.info("Checking Logout button is displayed");
         return Waiter.waitElementToBeVisible(logoutButton).isDisplayed();
@@ -67,8 +63,7 @@ public class EntriesPage extends Page {
 
     public String getEntryTextByIndex(int index) {
         log.info("Getting text of " + index + " entry");
-        String entryText = Waiter.waitElementToBeVisible(listOfEntries.get(index)).getText();
-        return entryText;
+        return Waiter.waitElementToBeVisible(listOfEntries.get(index)).getText();
     }
 
     public SingleEntryPageService clickOnEntryByIndex(int index) {
@@ -91,8 +86,7 @@ public class EntriesPage extends Page {
 
     public int countTheNumberOfEntries() {
         log.info("Counting the number of Entries");
-        int numberOfEntries = listOfEntries.size();
-        return numberOfEntries;
+        return listOfEntries.size();
     }
 
     public EntriesPageService clickLogoImage() {
@@ -121,14 +115,12 @@ public class EntriesPage extends Page {
 
     public String getTagCriteriaText() {
         log.info("Getting tag criteria name");
-        String tagCriteriaText = Waiter.waitElementToBeVisible(tagCriteria).getText();
-        return tagCriteriaText;
+        return Waiter.waitElementToBeVisible(tagCriteria).getText();
     }
 
     public int getTheNumberOfEntriesOnPage() {
         log.info("Getting the number of entries on a page");
-        int numberOfEntries = listOfEntries.size();
-        return numberOfEntries;
+        return listOfEntries.size();
     }
 
 }

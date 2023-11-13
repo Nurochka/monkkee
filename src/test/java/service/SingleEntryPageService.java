@@ -49,7 +49,6 @@ public class SingleEntryPageService extends SingleEntryPage {
     @Step("Click on assigned tag by Name")
     public SingleEntryPageService clickOnAssignedTagByName(String tagNameToClick) {
         int numberOfAssignedTags = singleEntryPage.getNumberOfAssignedTags();
-
         for (int i = 0; i < numberOfAssignedTags; i++) {
             if (singleEntryPage.getTextOfAssignedTagByIndex(i).equals(tagNameToClick)) {
                 singleEntryPage.clickOnAssignedTagByIndex(i);

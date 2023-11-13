@@ -31,26 +31,26 @@ public class SingleEntryPageTest extends BaseTest {
     @Test(description = "Checking a new Tag can be assigned to Entry", priority = 2, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that a new Tag is assigned to a New Entry")
     public void checkNewTagIsAssignedToNewEntryTest() {
-        String randomEntryText = generateRandomString(50);
-        String randomTagText = generateRandomString(5);
-        Boolean isNewTagAssigned = loginPageService.login(user)
+        String EntryText = generateRandomString(50);
+        String TagText = generateRandomString(5);
+        boolean isNewTagAssigned = loginPageService.login(user)
                 .clickCreateNewEntryButton()
-                .createEntryWithTag(randomEntryText, randomTagText)
-                .checkNewTagIsAssigned(randomTagText);
+                .createEntryWithTag(EntryText, TagText)
+                .checkNewTagIsAssigned(TagText);
         Assert.assertTrue(isNewTagAssigned, "New Tag is not in the list of assigned tags!");
     }
 
     @Test(description = "Checking previously created tag is available for a new Entry", priority = 1, groups = {"regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that previously created tag is displayed in 'Not assigned tags' dropdown")
     public void checkExistingTagIsAvailableInANewEntryTest() {
-        String randomEntryText = generateRandomString(50);
-        String randomTagText = generateRandomString(5);
-        Boolean isPreviouslyCreatedTagAvailable = loginPageService.login(user)
+        String EntryText = generateRandomString(50);
+        String TagText = generateRandomString(5);
+        boolean isPreviouslyCreatedTagAvailable = loginPageService.login(user)
                 .clickCreateNewEntryButton()
-                .createEntryWithTag(randomEntryText, randomTagText)
+                .createEntryWithTag(EntryText, TagText)
                 .navigateBackToOverviewPage()
                 .clickCreateNewEntryButton()
-                .checkPreviouslyCreatedTagIsInTheList(randomTagText);
+                .checkPreviouslyCreatedTagIsInTheList(TagText);
         Assert.assertTrue(isPreviouslyCreatedTagAvailable,
                 "Previously created Tag is not available for other entries!");
     }
@@ -58,13 +58,13 @@ public class SingleEntryPageTest extends BaseTest {
     @Test(description = "Checking assigned tag can be removed", priority = 3, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that assigned tag is removed when clicking on it")
     public void checkAssignedTagCanBeRemovedTest() {
-        String randomEntryText = generateRandomString(50);
-        String randomTagText = generateRandomString(5);
-        Boolean isTagPresentInAssigned = loginPageService.login(user)
+        String EntryText = generateRandomString(50);
+        String TagText = generateRandomString(5);
+        boolean isTagPresentInAssigned = loginPageService.login(user)
                 .clickCreateNewEntryButton()
-                .createEntryWithTag(randomEntryText, randomTagText)
-                .clickOnAssignedTagByName(randomTagText)
-                .checkNewTagIsAssigned(randomTagText);
+                .createEntryWithTag(EntryText, TagText)
+                .clickOnAssignedTagByName(TagText)
+                .checkNewTagIsAssigned(TagText);
         Assert.assertFalse(isTagPresentInAssigned, "Previously assigned tag is not removed!");
     }
 

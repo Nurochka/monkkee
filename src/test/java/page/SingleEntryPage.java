@@ -45,7 +45,7 @@ public class SingleEntryPage extends Page {
         return this;
     }
 
-    public SingleEntryPage clickSaveButton(){
+    public SingleEntryPage clickSaveButton() {
         log.info("Clicking Save button");
         Waiter.waitElementToBeClickable(savedIcon).click();
         return this;
@@ -71,14 +71,12 @@ public class SingleEntryPage extends Page {
 
     public int getNumberOfAssignedTags() {
         log.info("Getting number of assigned tags");
-        int numberOfAssignedTags = listOfAssignedTags.size();
-        return numberOfAssignedTags;
+        return listOfAssignedTags.size();
     }
 
     public String getTextOfAssignedTagByIndex(int index) {
-        log.info("Getting text from "+ index + " tag");
-        String tagText = Waiter.waitElementToBeVisible(listOfAssignedTags.get(index)).getText();
-        return tagText;
+        log.info("Getting text from " + index + " tag");
+        return Waiter.waitElementToBeVisible(listOfAssignedTags.get(index)).getText();
     }
 
     public List<String> getTheListOfExistingTags() {
@@ -86,8 +84,8 @@ public class SingleEntryPage extends Page {
         Select dropdownWithExistingTags = new Select(selectTagDropdown);
         List<WebElement> existingTags = dropdownWithExistingTags.getOptions();
         List<String> existingTagsOptions = new ArrayList<String>();
-        for (WebElement option: existingTags
-             ) {
+        for (WebElement option : existingTags
+        ) {
             existingTagsOptions.add(option.getText());
         }
         return existingTagsOptions;
@@ -106,11 +104,9 @@ public class SingleEntryPage extends Page {
         return this;
     }
 
-    public SingleEntryPage clickOnAssignedTagByIndex(int index) {
+    public void clickOnAssignedTagByIndex(int index) {
         log.info("Clicking on existing Tag by index");
         Waiter.waitElementToBeClickable(listOfAssignedTags.get(index)).click();
-        return this;
     }
-
 
 }

@@ -72,7 +72,6 @@ public class EntriesPageService extends EntriesPage {
 
     @Step("Check search explanation text contains correct tag name")
     public boolean SearchExplanationTextContainsCorrectTagName(String tagNameToContain) {
-        System.out.println(entriesPage.getTagCriteriaText() + " " + tagNameToContain);
         return (entriesPage.getTagCriteriaText().equals(tagNameToContain));
     }
 
@@ -86,13 +85,11 @@ public class EntriesPageService extends EntriesPage {
         return listOfTextFromAllEntries;
     }
 
-
     private EntriesPageService confirmRemovingInAlertPopup() {
         waitAlertIsPresent();
         Alert alert = driver.switchTo().alert();
         alert.accept();
         return this;
     }
-
 
 }

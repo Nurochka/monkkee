@@ -32,7 +32,6 @@ public class LoginPage extends Page {
     @FindBy(xpath = "//div[@class='form-group has-error']//descendant::div[@class='help-block ng-binding']")
     private WebElement passwordValidation;
 
-
     public LoginPage openPage(String url) {
         driver.get(url);
         return this;
@@ -52,46 +51,39 @@ public class LoginPage extends Page {
         return this;
     }
 
-    public LoginPage clickLoginButton() {
+    public void clickLoginButton() {
         log.info("Click Login button");
         Waiter.waitElementToBeClickable(loginButton).click();
-        return this;
     }
 
-    public LoginPage switchLanguage(String lang) {
+    public void switchLanguage(String lang) {
         log.info("Switching language to " + lang);
         driver.findElement(By.xpath(String.format(LANGUAGE_OPTION, lang))).click();
-        return this;
     }
 
     public String getUserNameLabelText() {
         log.info("Get user name label text");
-        String text = nameFieldLabel.getText();
-        return text;
+        return nameFieldLabel.getText();
     }
 
     public String getPasswordLabelText() {
         log.info("Get password label text");
-        String text = passwordFieldLabel.getText();
-        return text;
+        return passwordFieldLabel.getText();
     }
 
     public String getLoginButtonText() {
         log.info("Get login button text");
-        String text = loginButtonLabel.getText();
-        return text;
+        return loginButtonLabel.getText();
     }
 
     public String getPasswordFieldValidationText() {
         log.info("Get password field validation text");
-        String text = Waiter.waitElementToBeVisible(passwordValidation).getText();
-        return text;
+        return Waiter.waitElementToBeVisible(passwordValidation).getText();
     }
 
     public boolean checkLoginButtonIsPresent() {
         log.info("Checking Login button is displayed");
         return Waiter.waitElementToBeClickable(loginButton).isDisplayed();
     }
-
 
 }
