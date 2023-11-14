@@ -22,7 +22,7 @@ public class EntriesPageTest extends BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUp() {
         loginPageService = new LoginPageService();
-        user = new User();
+        user = new User("monkkee_diary@mail.ru", "Mazda@89");
     }
 
     @AfterMethod(alwaysRun = true)
@@ -37,6 +37,7 @@ public class EntriesPageTest extends BaseTest {
         int indexOfTheLatestSavedEntry = 0;
         String expectedEntryText = generateRandomString(50);
         String actualEntryText = loginPageService.login(user)
+                .clickLogoImage()
                 .clickCreateNewEntryButton()
                 .createOrEditEntry(expectedEntryText)
                 .getEntryTextByIndex(indexOfTheLatestSavedEntry);
@@ -50,6 +51,7 @@ public class EntriesPageTest extends BaseTest {
         String TextOnCreation = generateRandomString(50);
         String TextOnEditing = generateRandomString(30);
         String actualEntryTextAfterEditing = loginPageService.login(user)
+                .clickLogoImage()
                 .clickCreateNewEntryButton()
                 .createOrEditEntry(TextOnCreation)
                 .clickOnEntryTextByIndex(indexOfTheLatestSavedEntry)
@@ -59,12 +61,13 @@ public class EntriesPageTest extends BaseTest {
                 "Text of edited entry is not as expected!");
     }
 
-    @Test(description = "Checking Entry can be removed", priority = 2, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
+    @Test(description = "Checking Entry can be removed", priority = 3, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that created Entry can be removed successfully")
     public void checkEntryIsRemovedTest() {
         int indexOfEntryToRemove = 0;
         String TextOnCreation = generateRandomString(50);
         EntriesPageService entriesPageService = loginPageService.login(user)
+                .clickLogoImage()
                 .clickCreateNewEntryButton()
                 .createOrEditEntry(TextOnCreation);
         int numberOfEntriesBeforeRemoving = entriesPageService.getTheNumberOfExistingEntries();
@@ -76,7 +79,7 @@ public class EntriesPageTest extends BaseTest {
                 "Entry was not removed correctly!");
     }
 
-    @Test(description = "Search an Entry by partial text", priority = 2, groups = {"regression"}, retryAnalyzer = Retry.class)
+    @Test(description = "Search an Entry by partial text", priority = 4, groups = {"regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that Entry is displayed in Search results when searching by text")
     public void checkEntryIsSearchedByTextTest() {
         String TextOnCreation = generateRandomString(20);
@@ -85,6 +88,7 @@ public class EntriesPageTest extends BaseTest {
         int indexOfFoundEntry = 0;
         String subStringToSearch = generateSubString(TextOnCreation, subStringStartIndex, subStringEndIndex);
         String textFromFoundEntry = loginPageService.login(user)
+                .clickLogoImage()
                 .clickCreateNewEntryButton()
                 .createOrEditEntry(TextOnCreation)
                 .searchForEntryByText(subStringToSearch)
@@ -92,13 +96,14 @@ public class EntriesPageTest extends BaseTest {
         Assert.assertTrue(textFromFoundEntry.contains(subStringToSearch), "Returned value doesn't is wrong!");
     }
 
-    @Test(description = "Search Entries by tag", priority = 2, groups = {"regression"}, retryAnalyzer = Retry.class)
+    @Test(description = "Search Entries by tag", priority = 5, groups = {"regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that Entry is displayed in Search results when searching by tag")
     public void checkEntryIsSearchedByTagTest() {
         String firstEntryText = generateRandomString(20);
         String secondEntryText = generateRandomString(20);
         String tag = generateRandomString(4);
         EntriesPageService entriesPageService = loginPageService.login(user)
+                .clickLogoImage()
                 .clickCreateNewEntryButton()
                 .createEntryWithTag(firstEntryText, tag)
                 .navigateBackToOverviewPage()
