@@ -30,14 +30,13 @@ public class EntriesPageTest extends BaseTest {
         DriverSingleton.getInstance().getDriver().navigate().refresh();
     }
 
-    @Test(description = "Checking a new Entry can be saved successfully", priority = 1, groups = {"smoke", "regression"},
+    @Test(description = "Checking a new Entry can be saved successfully", priority = 3, groups = {"smoke", "regression"},
     retryAnalyzer = Retry.class)
     @Description("Verify that a new Entry can be created")
     public void checkNewEntryIsAddedTest() {
         int indexOfTheLatestSavedEntry = 0;
         String expectedEntryText = generateRandomString(50);
         String actualEntryText = loginPageService.login(user)
-                .clickLogoImage()
                 .clickCreateNewEntryButton()
                 .createOrEditEntry(expectedEntryText)
                 .getEntryTextByIndex(indexOfTheLatestSavedEntry);
@@ -51,7 +50,6 @@ public class EntriesPageTest extends BaseTest {
         String TextOnCreation = generateRandomString(50);
         String TextOnEditing = generateRandomString(30);
         String actualEntryTextAfterEditing = loginPageService.login(user)
-                .clickLogoImage()
                 .clickCreateNewEntryButton()
                 .createOrEditEntry(TextOnCreation)
                 .clickOnEntryTextByIndex(indexOfTheLatestSavedEntry)
@@ -61,13 +59,12 @@ public class EntriesPageTest extends BaseTest {
                 "Text of edited entry is not as expected!");
     }
 
-    @Test(description = "Checking Entry can be removed", priority = 3, groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
+    @Test(description = "Checking Entry can be removed", groups = {"smoke", "regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that created Entry can be removed successfully")
     public void checkEntryIsRemovedTest() {
         int indexOfEntryToRemove = 0;
         String TextOnCreation = generateRandomString(50);
         EntriesPageService entriesPageService = loginPageService.login(user)
-                .clickLogoImage()
                 .clickCreateNewEntryButton()
                 .createOrEditEntry(TextOnCreation);
         int numberOfEntriesBeforeRemoving = entriesPageService.getTheNumberOfExistingEntries();
@@ -96,7 +93,7 @@ public class EntriesPageTest extends BaseTest {
         Assert.assertTrue(textFromFoundEntry.contains(subStringToSearch), "Returned value doesn't is wrong!");
     }
 
-    @Test(description = "Search Entries by tag", priority = 5, groups = {"regression"}, retryAnalyzer = Retry.class)
+    @Test(description = "Search Entries by tag", groups = {"regression"}, retryAnalyzer = Retry.class)
     @Description("Verify that Entry is displayed in Search results when searching by tag")
     public void checkEntryIsSearchedByTagTest() {
         String firstEntryText = generateRandomString(20);
